@@ -1,0 +1,4 @@
+interface:
+  display_name: "桌面精灵动图生成器"
+  short_description: "从文字或参考图生成统一角色的透明桌宠循环动作，导出 APNG 与 GIF"
+  default_prompt: "使用 $desktop-sprite-generator，生成一只戴红围巾的黑白小猫，输出打哈欠、睡觉和进食三组透明循环动图。"

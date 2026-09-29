@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "mode": "text",
+  "size": [
+    320,
+    320
+  ],
+  "fps": 12,
+  "loop": 0,
+  "visual_review": {
+    "status": "pending",
+    "notes": "Final contact sheets inspected: all three actions contain the same complete character, no scenery/props, visible yawn/stretch, closed-eye rest and chewing. Alpha/decoded timing/loop checks passed and numerical motion warnings are empty. Final animated playback on multiple backgrounds still awaits user visual acceptance; pending does not mean file validation failed."
+  },
+  "actions": {
+    "yawn": {
+      "files": {
+        "apng": "yawn.apng",
+        "gif": "yawn.gif"
+      },
+      "frames": 16,
+      "anchor": [
+        0.5,
+        0.92
+      ],
+      "timings_ms": {
+        "apng": [
+          83,
+          84,
+          83,
+          83,
+          84,
+          83,
+          83,
+          84,
+          83,
+          83,
+          84,
+          83,
+          83,
+          84,
+          83,
+          83
+        ],
+        "gif": [
+          80,
+          90,
+          80,
+          80,
+          90,
+          80,
+          80,
+          90,
+          80,
+          80,
+          90,
+          80,
+          80,
+          90,
+          80,
+          80
+        ]
+      },
+      "duration_ms": {
+        "apng": 1333,
+        "gif": 1330
+      }
+    },
+    "sleep": {
+      "files": {
+        "apng": "sleep.apng",
+        "gif": "sleep.gif"
+      },
+      "frames": 16,
+      "anchor": [
+        0.5,
+        0.92
+      ],
+      "timings_ms": {
+        "apng": [
+          83,
+          84,
+          83,
+          83,
+          84,
+          83,
+          83,
+          84,
+          83,
+          83,
+          84,
+          83,
+          83,
+          84,
+          83,
+          83
+        ],
+        "gif": [
+          80,
+          90,
+          80,
+          80,
+          90,
+          80,
+          80,
+          90,
+          80,
+          80,
+          90,
+          80,
+          80,
+          90,
+          80,
+          80
+        ]
+      },
+      "duration_ms": {
+        "apng": 1333,
+        "gif": 1330
+      }
+    },
+    "eat": {
+      "files": {
+        "apng": "eat.apng",
+        "gif": "eat.gif"
+      },
+      "frames": 16,
+      "anchor": [
+        0.5,
+        0.92
+      ],
+      "timings_ms": {
+        "apng": [
+          83,
+          84,
+          83,
+          83,
+          84,
+          83,
+          83,
+          84,
+          83,
+          83,
+          84,
+          83,
+          83,
+          84,
+          83,
+          83
+        ],
+        "gif": [
+          80,
+          90,
+          80,
+          80,
+          90,
+          80,
+          80,
+          90,
+          80,
+          80,
+          90,
+          80,
+          80,
+          90,
+          80,
+          80
+        ]
+      },
+      "duration_ms": {
+        "apng": 1333,
+        "gif": 1330
+      }
+    }
+  }
+}
