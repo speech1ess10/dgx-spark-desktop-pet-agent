@@ -29,6 +29,41 @@ Q 版角色设定图；Wan 2.2 根据角色图生成动作视频；后处理流�
 | ![精灵吃饭](docs/assets/demo-dog/eat.gif) | ![精灵睡觉](docs/assets/demo-dog/sleep.gif) | ![精灵打哈欠](docs/assets/demo-dog/yawn.gif) |
 | [查看 Wan 原始视频](docs/assets/demo-dog/eat.mp4) | [查看 Wan 原始视频](docs/assets/demo-dog/sleep.mp4) | [查看 Wan 原始视频](docs/assets/demo-dog/yawn.mp4) |
 
+## 更多生成案例
+
+同一套“照片生成桌面精灵”流水线可以处理不同角色，并尽量保留耳朵、毛色、
+五官和饰品等有辨识度的特征。
+
+### 小兔子桌面精灵
+
+<table>
+  <tr><th align="center">兔子参考照片</th><th align="center">生成的 Q 版角色</th></tr>
+  <tr>
+    <td align="center"><img src="docs/assets/demo-rabbit/reference.jpg" width="280" alt="兔子参考照片"></td>
+    <td align="center"><img src="docs/assets/demo-rabbit/character.png" width="280" alt="生成的兔子桌面精灵"></td>
+  </tr>
+</table>
+
+| 吃饭 | 睡觉 | 打哈欠 |
+|:---:|:---:|:---:|
+| ![兔子吃饭](docs/assets/demo-rabbit/eat.gif) | ![兔子睡觉](docs/assets/demo-rabbit/sleep.gif) | ![兔子打哈欠](docs/assets/demo-rabbit/yawn.gif) |
+| [查看 Wan 视频](docs/assets/demo-rabbit/eat.mp4) | [查看 Wan 视频](docs/assets/demo-rabbit/sleep.mp4) | [查看 Wan 视频](docs/assets/demo-rabbit/yawn.mp4) |
+
+### 小猪桌面精灵
+
+<table>
+  <tr><th align="center">小猪参考照片</th><th align="center">生成的 Q 版角色</th></tr>
+  <tr>
+    <td align="center"><img src="docs/assets/demo-pig/reference.png" width="280" alt="小猪参考照片"></td>
+    <td align="center"><img src="docs/assets/demo-pig/character.png" width="280" alt="生成的小猪桌面精灵"></td>
+  </tr>
+</table>
+
+| 吃饭 | 睡觉 | 打哈欠 |
+|:---:|:---:|:---:|
+| ![小猪吃饭](docs/assets/demo-pig/eat.gif) | ![小猪睡觉](docs/assets/demo-pig/sleep.gif) | ![小猪打哈欠](docs/assets/demo-pig/yawn.gif) |
+| [查看 Wan 视频](docs/assets/demo-pig/eat.mp4) | [查看 Wan 视频](docs/assets/demo-pig/sleep.mp4) | [查看 Wan 视频](docs/assets/demo-pig/yawn.mp4) |
+
 ## 为什么它是一个 Agent
 
 - **本地模型对话：** Qwen3-4B 在 DGX Spark 上运行，为精灵提供中文对话和个性。
@@ -40,7 +75,7 @@ Q 版角色设定图；Wan 2.2 根据角色图生成动作视频；后处理流�
 
 ## 系统架构
 
-\`\`\`text
+```text
 macOS PySide6 桌面精灵
   ├─ 透明、置顶的悬浮窗口
   ├─ 鼠标互动、对话与操作确认
@@ -55,25 +90,25 @@ DGX Spark Agent API
              │ 本机 :8188
              ▼
           ComfyUI
-\`\`\`
+```
 
 DGX 无法直接操作 Mac。它只返回结构化的工具建议；macOS 客户端会验证建议、
 征求用户确认，然后才执行白名单内的本地操作。
 
 ## 仓库结构
 
-\`\`\`text
+```text
 desktop_pet_agent/
   mac_client/            # PySide6 macOS 桌面精灵
   spark_agent/           # 对话、状态、生成任务与 HTTP API
   tests/                 # 单元测试
   workflows/             # 导出的 ComfyUI API 工作流
-docs/assets/demo-dog/    # 照片生成桌面精灵的展示素材
+docs/assets/             # 小狗、兔子和小猪生成案例
 output/red-scarf-cat-final/
                          # 小型回退动画资源
 skills/desktop-sprite-generator/
                          # 可复用的透明精灵动图生成 Skill
-\`\`\`
+```
 
 模型权重、虚拟环境、私人连接信息、API 密钥以及用户生成任务历史不会提交到仓库。
 
@@ -90,53 +125,53 @@ skills/desktop-sprite-generator/
 
 ### 1. 在 Spark 下载对话模型
 
-\`\`\`bash
+```bash
 python -m pip install -U modelscope transformers
 modelscope download --model Qwen/Qwen3-4B \
   --local_dir "$HOME/model-download/Qwen3-4B"
-\`\`\`
+```
 
 模型约 8 GB，不包含在本仓库中。
 
 ### 2. 启动 Spark Agent
 
-\`\`\`bash
+```bash
 python -m desktop_pet_agent.spark_agent.server \
   --host 127.0.0.1 \
   --port 7000 \
   --asset-dir "$PWD/output/red-scarf-cat-final" \
   --chat-model "$HOME/model-download/Qwen3-4B"
-\`\`\`
+```
 
-需要生成新角色时，ComfyUI 必须监听 \`127.0.0.1:8188\`。没有启动 ComfyUI
+需要生成新角色时，ComfyUI 必须监听 `127.0.0.1:8188`。没有启动 ComfyUI
 时，对话功能和仓库附带的回退动画仍然可以使用。
 
 ### 3. 在 Mac 建立 SSH 隧道
 
 把占位符替换成比赛方提供的 Spark 连接信息：
 
-\`\`\`bash
+```bash
 ssh -N \
   -o ServerAliveInterval=60 \
   -o ServerAliveCountMax=5 \
   -L 7000:127.0.0.1:7000 \
   -p <SSH端口> <Spark用户名>@<Spark主机>
-\`\`\`
+```
 
 保持这个终端窗口运行，不要把 7000 端口直接暴露在公网。
 
 ### 4. 启动 macOS 客户端
 
-\`\`\`bash
+```bash
 python3 -m venv .venv-mac
 .venv-mac/bin/python -m pip install -r desktop_pet_agent/requirements-mac.txt
 .venv-mac/bin/python desktop_pet_agent/mac_client/main.py
-\`\`\`
+```
 
 操作方式：拖动可移动精灵，单击会触发被戳反应，双击轮换动作，右键可以
 对话、生成新精灵、选择动作、重置或退出。
 
-可以试着说：\`帮我打开下载文件夹\`。执行前，Mac 会弹窗请求确认。
+可以试着说：`帮我打开下载文件夹`。执行前，Mac 会弹窗请求确认。
 
 ## 角色与动作生成流程
 
@@ -151,9 +186,9 @@ python3 -m venv .venv-mac
 
 ## 运行测试
 
-\`\`\`bash
+```bash
 python3 -m unittest discover -s desktop_pet_agent/tests -v
-\`\`\`
+```
 
 ## 安全说明
 
@@ -164,4 +199,3 @@ python3 -m unittest discover -s desktop_pet_agent/tests -v
 
 代码采用 MIT License。模型权重遵循各自的上游许可证。仓库内的精灵图片、
 动图和视频作为本项目的生成效果演示提供。
-
